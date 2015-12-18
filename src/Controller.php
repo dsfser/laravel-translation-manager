@@ -39,7 +39,7 @@ class Controller extends BaseController
             $translations[$translation->key][$translation->locale] = $translation;
         }
 
-         return view('translation-manager::index')
+         return view('admin.setting.language.index')
             ->with('translations', $translations)
             ->with('locales', $locales)
             ->with('groups', $groups)
