@@ -1,6 +1,7 @@
 <?php namespace Barryvdh\TranslationManager;
 
 use Illuminate\Routing\Router;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class ManagerServiceProvider extends ServiceProvider {
@@ -67,7 +68,7 @@ class ManagerServiceProvider extends ServiceProvider {
      * @param  \Illuminate\Routing\Router  $router
 	 * @return void
 	 */
-	public function boot(Router $router)
+	public function boot(Router $router, Request $request)
 	{
         $viewPath = __DIR__.'/../resources/views';
         $this->loadViewsFrom($viewPath, 'translation-manager');
@@ -82,6 +83,13 @@ class ManagerServiceProvider extends ServiceProvider {
         
         $config = $this->app['config']->get('translation-manager.route', []);
         $config['namespace'] = 'Barryvdh\TranslationManager';
+
+        if ($request->is('admin/settings/languages/view/*'))
+        {
+                $config['as'] = "settings.languages.view";
+        }
+
+        print_r($config);
 
         $router->group($config, function($router)
         {
