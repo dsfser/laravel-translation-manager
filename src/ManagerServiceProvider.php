@@ -89,8 +89,6 @@ class ManagerServiceProvider extends ServiceProvider {
                 $config['as'] = "settings.languages.view";
         }
 
-        print_r($config);
-
         $router->group($config, function($router)
         {
             $router->get('view/{group}', 'Controller@getView');
