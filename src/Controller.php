@@ -15,13 +15,6 @@ class Controller extends BaseController
      public function __construct(Manager $manager)
     {
         $this->manager = $manager;
-        $userlang = Auth::user()->lang;
-
-        if(!empty($userlang)){
-            App::setlocale($userlang);
-        }else{
-            App::setlocale(Config::get('app.fallback_locale'));
-        }
     }
 
 
