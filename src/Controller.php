@@ -17,8 +17,10 @@ class Controller extends BaseController
         $this->manager = $manager;
         $userlang = Auth::user()->lang;
 
-        if(!$userlang == ""){
+        if(!empty($userlang)){
             App::setlocale($userlang);
+        }else{
+            App::setlocale(Config::get('app.fallback_locale'));
         }
     }
 
