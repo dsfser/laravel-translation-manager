@@ -4,16 +4,24 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Barryvdh\TranslationManager\Models\Translation;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
     /** @var \Barryvdh\TranslationManager\Manager  */
     protected $manager;
 
-    public function __construct(Manager $manager)
+     public function __construct(Manager $manager)
     {
         $this->manager = $manager;
+        $userlang = Auth::user()->lang;
+
+        if(!$userlang == ""){
+            App::setlocale($userlang);
+        }
     }
+
 
     public function getIndex($group = null)
     {
